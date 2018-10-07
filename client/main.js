@@ -4,9 +4,10 @@ import ReactDOM from 'react-dom';
 import RouteHook from 'react-route-hook';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Tracker } from 'meteor/tracker';
+import { Session } from 'meteor/session';
+
 import {createBrowserHistory} from 'history';
 import { routes, onAuthChange, onEnterPublicPage, onEnterPrivatePage } from '../imports/routes/routes';
-
 import '../imports/startup/simple-schema-configuration';
 
 import { Links } from '../imports/api/links';
@@ -22,9 +23,8 @@ Tracker.autorun(() => {
     onAuthChange(isAuthenticated);
 });
 
-
-
 Meteor.startup(() => {
+  Session.set('showVisible', true);
   ReactDOM.render(<BrowserRouter>
     <Switch>
         <Route path="/signup" component={Signup} onEnter={onEnterPublicPage}/>  
